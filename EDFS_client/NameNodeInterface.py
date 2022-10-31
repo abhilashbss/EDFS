@@ -1,5 +1,6 @@
 import requests
 
+
 class NameNodeInterface:
     def __init__(self, nameNode_url):
         self.nameNode_url = nameNode_url

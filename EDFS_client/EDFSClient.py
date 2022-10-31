@@ -5,8 +5,9 @@ class EDFSClient:
         metadata_db_connector = db_connectors.get_metadata_connector(name_node_url, metastore_type)
         self.nameNodeInterface = NameNodeInterface(name_node_url)
 
-    def WriteFile(self, fs_path, local_file_path, no_of_partitions):
-        self.nameNodeInterface.
+    def WriteFile(self, fs_path, file_name, local_file_path, no_of_partitions):
+        self.nameNodeInterface.create_file_partitions(fs_path, file_name, local_file_path, no_of_partitions)
+
         pass
 
     def ReadFile(self, fs_path):
