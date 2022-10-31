@@ -37,3 +37,7 @@ class NameNodeInterface:
                                                           "content": {"file_path": file_path,
                                                                       "partition_no": partition_no}})
         return response.json()
+
+    def get_default_datanode_db(self):
+        response = requests.post(self.nameNode_url, json={"command": "get_default_datanode_db"})
+        return response.json()

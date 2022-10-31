@@ -5,9 +5,6 @@ class DatanodeInterface:
     def ReadFilePartition(self, file_path, partition_no):
         pass
 
-    def ReadFile(self, file_path):
-        pass
-
-    def WriteFilePartition(self, file_path, file_partition_content):
+    def WriteFilePartition(self, file_path, file_partition_content, partition_table):
         pass
 

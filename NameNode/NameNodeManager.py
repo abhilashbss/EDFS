@@ -20,3 +20,5 @@ class NameNodeManager:
         # check if this is a directory and check the respective flags
         pass
 
+    def GetDefaultDataNode(self):
+        pass

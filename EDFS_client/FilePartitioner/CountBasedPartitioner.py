@@ -4,16 +4,14 @@ import json
 
 
 class CountBasedPartitioner:
-    def __init__(self, file, format, no_of_partitions):
+    def __init__(self, file, format):
         self.file = file
         self.format = format
-        self.no_of_partitions = no_of_partitions
         self.reader = GenericFileReader(format)
         self.file_content = self.reader.read(file)
         self.partitions = []
         self.partition_length = -1
         self.total_file_count = -1
-
 
     def partition(self, no_of_partitions):
         self.total_file_count = len(self.file_content)
@@ -25,4 +23,7 @@ class CountBasedPartitioner:
 
     def get_partition(self, partition_no):
         return self.partitions[partition_no]
+
+    def get_all_partitions(self):
+        return self.partitions
 
