@@ -26,4 +26,3 @@ class CountBasedPartitioner:
 
     def get_all_partitions(self):
         return self.partitions
-
