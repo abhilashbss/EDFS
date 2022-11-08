@@ -32,7 +32,7 @@ class EDFSClient:
         file_partitions = self.nameNodeInterface.get_file_partitions(fs_path)
         file_data = []
         for i in range(len(file_partitions)):
-            file_data.append(self.dataNodeInterface.ReadFilePartition(fs_path, i))
+            file_data.append(self.dataNodeInterface.ReadFilePartition(fs_path, file_partitions[i].partition_table_name))
         return "".join(file_data)
 
 
