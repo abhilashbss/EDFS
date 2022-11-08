@@ -1,6 +1,5 @@
 import math
 from file_readers.file_reader import GenericFileReader
-import json
 
 
 class CountBasedPartitioner:
