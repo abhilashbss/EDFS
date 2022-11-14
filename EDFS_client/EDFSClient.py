@@ -5,7 +5,7 @@ from DatanodeInterface import DatanodeInterface
 
 
 class EDFSClient:
-    def __init__(self, name_node_url):
+    def __init__(self, name_node_url: object) -> object:
         # self.metadata_db_connector = db_connector.get_metadata_connector(name_node_url, metastore_type)
         self.nameNodeInterface = NameNodeInterface(name_node_url)
         self.dataNodeInterface = None
