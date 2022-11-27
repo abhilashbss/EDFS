@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 from sqlalchemy import create_engine
 import ConfigParser
 from db_connectors.db_connector import db_connector
+from NameNodeManager import NameNodeManager
 
 db_connect = create_engine('sqlite:///chinook.db')
 app = Flask(__name__)
@@ -10,13 +11,12 @@ api = Api(app)
 metastore_connector = None
 
 
-def init_name_node():
+def get_name_node_db_data():
     configParser = ConfigParser.RawConfigParser()
     configFilePath = './namenode.conf'
     configParser.read(configFilePath)
     config_dict = dict(configParser.items('default'))
-    return db_connector.get_connector(config_dict)
-
+    return config_dict["metastore_db_type"], config_dict["metastore_db_url"]
 
 class Ls:
     def get(self, file_path):
@@ -30,6 +30,8 @@ api.add-resource()
 
 
 if __name__ == '__main__':
-    metastore_connector = init_name_node()
+    metastore_db_type, metadata_db_url = get_name_node_db_data()
+    manager = NameNodeManager(metastore_db_type,metadata_db_url)
+
 
     app.run(port='5002')
