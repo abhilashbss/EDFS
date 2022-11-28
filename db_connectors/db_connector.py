@@ -1,7 +1,7 @@
 import mysql
 import pymongo
 
-
+# This is for datanode connector
 class db_connector:
     def __init__(self):
         self.connector = None
@@ -15,21 +15,21 @@ class db_connector:
     }
     '''
     def get_connector(self, conf):
-        if conf["db_type"] == "mongo":
-            self.connector = mongo_connector(conf)
+        if conf["db_type"] == "mongoDB":
+            self.connector = mongo_connector(conf["db_url"])
         if conf["db_type"] == "mysql":
-            self.connector = mysql_connector(conf)
+            self.connector = mysql_connector(conf["db_url"])
 
+        return self.connector
 '''
 import pymongo
-
-
 '''
 class mongo_connector():
 
-    def __init__(self, connection_conf):
-        myclient = pymongo.MongoClient(connection_conf["db_url"])
-        self.mydb = myclient[connection_conf["db_database"]]
+    def __init__(self, datanode_db_url):
+        print(datanode_db_url)
+        myclient = pymongo.MongoClient(datanode_db_url)
+        self.mydb = myclient["Datanode"]
 
     def read(self, partition_table ):
         mycol = self.mydb[partition_table]
@@ -38,8 +38,10 @@ class mongo_connector():
             data.append(x)
         return data
 
-    def write(self, ):
-
+    def write(self, partition_table , partitioned_data_array):
+        print(partitioned_data_array["file_content"])
+        mycol = self.mydb[partition_table]
+        mycol.insert_many(partitioned_data_array["file_content"])
 
 '''
     mycursor = mydb.cursor()
@@ -47,8 +49,6 @@ class mongo_connector():
     myresult = mycursor.fetchall()
 '''
 class mysql_connector():
-
-
     def __init__(self, connection_conf):
         self.mydb = mysql.connector.connect(
             host=connection_conf["db_url"],

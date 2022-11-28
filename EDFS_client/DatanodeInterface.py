@@ -9,3 +9,4 @@ class DatanodeInterface:
     def WriteFilePartition(self, file_path, file_partition_content, partition_table):
         self.datanode_connector.write(partition_table, {"file_path": file_path, "file_content": file_partition_content})
 
+

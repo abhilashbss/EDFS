@@ -1,37 +1,35 @@
-from flask import Flask, request
-from flask_restful import Resource, Api
-from sqlalchemy import create_engine
-import ConfigParser
-from db_connectors.db_connector import db_connector
+
+import configparser
+# from db_connectors.db_connector import db_connector
 from NameNodeManager import NameNodeManager
-
-db_connect = create_engine('sqlite:///chinook.db')
-app = Flask(__name__)
-api = Api(app)
-metastore_connector = None
+from xmlrpc.server import SimpleXMLRPCServer
+from xmlrpc.client import Binary
 
 
-def get_name_node_db_data():
-    configParser = ConfigParser.RawConfigParser()
-    configFilePath = './namenode.conf'
+
+def get_name_node_manager():
+    configParser = configparser.ConfigParser()
+    configFilePath = r'/Users/abhilashbss/Desktop/repositories/EDFS/NameNode/namenode.ini'
     configParser.read(configFilePath)
+    print(configParser.sections())
     config_dict = dict(configParser.items('default'))
-    return config_dict["metastore_db_type"], config_dict["metastore_db_url"]
-
-class Ls:
-    def get(self, file_path):
-        conn = db_connect.connect()
-        # do something with conn and get ls
-        return {}
-
-
-api.add_resource(Ls, '/namenode')  # Route_1
-api.add-resource()
+    namenode_manager = NameNodeManager(config_dict["metastore_db_type"],
+                                       config_dict["metastore_db_url"],
+                                       config_dict["default_datanode_type"],
+                                       config_dict["default_datanode_url"])
+    return namenode_manager
 
 
 if __name__ == '__main__':
-    metastore_db_type, metadata_db_url = get_name_node_db_data()
-    manager = NameNodeManager(metastore_db_type,metadata_db_url)
+    server = SimpleXMLRPCServer(('localhost', 9000),
+                                logRequests=True,
+                                allow_none=True)
+    server.register_introspection_functions()
+    server.register_multicall_functions()
+    server.register_instance(get_name_node_manager())
 
-
-    app.run(port='5002')
+    try:
+        print('Use Control-C to exit')
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print('Exiting')

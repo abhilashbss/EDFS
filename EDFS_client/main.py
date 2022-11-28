@@ -2,14 +2,11 @@ from EDFSClient import EDFSClient
 
 edfsClient = EDFSClient()
 
-edfsClient.readFile("/abc/cde")
+edfsClient.readFile("")
 
-readFile = csv.read("")
+readFile = csv.read("/Users/abhilashbss/Desktop/repositories/EDFS/EDFS_client/sample_text.csv")
 
-edfsClient.writeFile("")
-
-
-
+edfsClient.WriteFile("a/b/c")
 
 
 
