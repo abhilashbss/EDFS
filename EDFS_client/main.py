@@ -1,12 +1,16 @@
 from EDFSClient import EDFSClient
 
-edfsClient = EDFSClient()
+e = EDFSClient("/Users/abhilashbss/Desktop/repositories/EDFS/EDFS_client/namenode_config.conf")
+# e.WriteFile("a/b/csv","/Users/abhilashbss/Desktop/repositories/EDFS/EDFS_client/sample_text.csv",
+#             "csv", 4 )
+# print(e.ReadFile("a/b/csv"))
+# print(e.ReadFilePartition("a/b/csv",2))
+# e.Mkdir("a/b","new_dir")
+# e.Rm("a/b/new_dir")
 
-edfsClient.readFile("")
+# e.Mkdir("a/b", "new_dir")
+# print(e.Ls("a/b"))
 
-readFile = csv.read("/Users/abhilashbss/Desktop/repositories/EDFS/EDFS_client/sample_text.csv")
-
-edfsClient.WriteFile("a/b/c")
-
+# print(e.GetPartitionLocations("a/b/csv"))
 
 

@@ -1,5 +1,8 @@
 import mysql
 import pymongo
+import requests
+import json
+
 
 # This is for datanode connector
 class db_connector:
@@ -17,10 +20,11 @@ class db_connector:
     def get_connector(self, conf):
         if conf["db_type"] == "mongoDB":
             self.connector = mongo_connector(conf["db_url"])
-        if conf["db_type"] == "mysql":
-            self.connector = mysql_connector(conf["db_url"])
+        if conf["db_type"] == "firebase":
+            self.connector = firebase_connector(conf["db_url"])
 
         return self.connector
+
 '''
 import pymongo
 '''
@@ -44,26 +48,24 @@ class mongo_connector():
         mycol.insert_many(partitioned_data_array["file_content"])
 
 '''
-    mycursor = mydb.cursor()
-    mycursor.execute("SELECT * FROM customers")
-    myresult = mycursor.fetchall()
+url = "https://dsci-551-19f64-default-rtdb.firebaseio.com/"
+
 '''
-class mysql_connector():
-    def __init__(self, connection_conf):
-        self.mydb = mysql.connector.connect(
-            host=connection_conf["db_url"],
-            user=connection_conf["db_user"],
-            password=connection_conf["db_pass"],
-            database=connection_conf["db_database"])
+
+
+class firebase_connector():
+    def __init__(self, url):
+        self.url = url
+
     def read(self, partition_table):
-        mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT * FROM "+partition_table)
-        myresult = mycursor.fetchall()
-        data = []
-        for x in myresult:
-            data.append(x)
-        return data
+        response = requests.get(self.url+ "/"+ partition_table+".json")
+        return response.json()
+
 
     def write(self, partition_table, partition_data):
-        data = partition_data["file_content"]
+        response = requests.put(self.url+ "/" + partition_table + ".json", json.dumps(partition_data["file_content"], ensure_ascii=True))
         
+
+# f = firebase_connector("https://dsci-551-19f64-default-rtdb.firebaseio.com/")
+# f.write("a_b_0",[{"a":"b"},{"a":"c"}])
+# print(f.read("a_b_0"))
