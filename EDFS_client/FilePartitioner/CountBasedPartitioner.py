@@ -30,7 +30,7 @@ class CountBasedPartitioner:
         return self.partitions
 
 
-# c = CountBasedPartitioner("/Users/abhilashbss/Desktop/repositories/EDFS/EDFS_client/sample_text.csv", "csv")
+# c = CountBasedPartitioner("./EDFS_client/sample_text.csv", "csv")
 # c.partition(4)
 # print(c.get_all_partitions()) # working
 

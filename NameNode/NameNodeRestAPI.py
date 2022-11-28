@@ -9,7 +9,7 @@ from xmlrpc.client import Binary
 
 def get_name_node_manager():
     configParser = configparser.ConfigParser()
-    configFilePath = r'/Users/abhilashbss/Desktop/repositories/EDFS/NameNode/namenode.ini'
+    configFilePath = r'./NameNode/namenode.ini'
     configParser.read(configFilePath)
     print(configParser.sections())
     config_dict = dict(configParser.items('default'))

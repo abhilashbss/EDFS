@@ -34,6 +34,6 @@ class NameNodeInterface:
         return self.server.GetDefaultDataNode()
 
 
-# n = NameNodeInterface("/Users/abhilashbss/Desktop/repositories/EDFS/EDFS_client/namenode_config.conf")
+# n = NameNodeInterface("./EDFS_client/namenode_config.conf")
 # print(n.mkdir("a/b","dir"))  working
 #   todo: test for rest

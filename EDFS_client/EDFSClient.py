@@ -70,8 +70,8 @@ class EDFSClient:
         partition_obj = self.nameNodeInterface.get_file_partitions(fs_path)
         return partition_obj
 
-e = EDFSClient("/Users/abhilashbss/Desktop/repositories/EDFS/EDFS_client/namenode_config.conf")
-# e.WriteFile("a/b/csv","/Users/abhilashbss/Desktop/repositories/EDFS/EDFS_client/sample_text.csv",
+e = EDFSClient("./EDFS_client/namenode_config.conf")
+# e.WriteFile("a/b/csv","./EDFS_client/sample_text.csv",
 #             "csv", 4 )
 # print(e.ReadFile("a/b/csv"))
 # print(e.ReadFilePartition("a/b/csv",2))

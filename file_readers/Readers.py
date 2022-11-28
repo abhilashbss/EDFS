@@ -34,4 +34,4 @@ class CsvReader(Reader):
     def write(self, local_file_path):
         pass
 
-CsvReader().read("/Users/abhilashbss/Desktop/repositories/EDFS/EDFS_client/sample_text.csv")
+CsvReader().read("./EDFS_client/sample_text.csv")
